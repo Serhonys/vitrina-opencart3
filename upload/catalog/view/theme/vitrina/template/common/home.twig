@@ -1,14 +1,11 @@
 {{ header }}
-<div id="common-home" class="container vt-home">
-  <div class="row">{{ column_left }}
-    {% if column_left and column_right %}
-    {% set class = 'col-sm-6' %}
-    {% elseif column_left or column_right %}
-    {% set class = 'col-sm-9' %}
-    {% else %}
-    {% set class = 'col-sm-12' %}
-    {% endif %}
-    <div id="content" class="{{ class }}">{{ content_top }}{{ content_bottom }}</div>
-    {{ column_right }}</div>
-</div>
+<main id="common-home" class="vt-page vt-home">
+  <div class="vt-wrap">
+    <div class="vt-layout">
+      {{ column_left }}
+      <div id="content" class="vt-main">{{ content_top }}{{ content_bottom }}</div>
+      {{ column_right }}
+    </div>
+  </div>
+</main>
 {{ footer }}

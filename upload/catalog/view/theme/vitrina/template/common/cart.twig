@@ -1,0 +1,35 @@
+<div id="cart" class="vt-minicart btn-group">
+  <button type="button" data-toggle="dropdown" data-loading-text="{{ text_loading }}" class="dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span id="cart-total">{{ text_items }}</span></button>
+  <ul class="dropdown-menu pull-right vt-minicart-panel">
+    {% if products or vouchers %}
+    <li>
+      <ul class="vt-minicart-lines">
+        {% for product in products %}
+        <li class="vt-minicart-line">
+          {% if product.thumb %}<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" /></a>{% endif %}
+          <div>
+            <a href="{{ product.href }}">{{ product.name }}</a>
+            {% if product.option %}{% for option in product.option %}<small>{{ option.name }} {{ option.value }}</small>{% endfor %}{% endif %}
+            {% if product.recurring %}<small>{{ text_recurring }} {{ product.recurring }}</small>{% endif %}
+            <span>x {{ product.quantity }} · {{ product.total }}</span>
+          </div>
+          <button type="button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}">×</button>
+        </li>
+        {% endfor %}
+        {% for voucher in vouchers %}
+        <li class="vt-minicart-line">
+          <div><span>{{ voucher.description }}</span><span>x 1 · {{ voucher.amount }}</span></div>
+          <button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}">×</button>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+    <li class="vt-minicart-totals">
+      {% for total in totals %}<p><span>{{ total.title }}</span><strong>{{ total.text }}</strong></p>{% endfor %}
+      <p class="vt-minicart-links"><a href="{{ cart }}">{{ text_cart }}</a><a href="{{ checkout }}">{{ text_checkout }}</a></p>
+    </li>
+    {% else %}
+    <li><p class="vt-empty">{{ text_empty }}</p></li>
+    {% endif %}
+  </ul>
+</div>

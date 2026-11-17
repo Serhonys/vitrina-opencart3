@@ -1,0 +1,25 @@
+{% if not redirect %}
+<ul class="vt-confirm">
+  {% for product in products %}
+  <li>
+    <div><a href="{{ product.href }}">{{ product.name }}</a>
+      {% for option in product.option %}<small>{{ option.name }}: {{ option.value }}</small>{% endfor %}
+      {% if product.recurring %}<small>{{ text_recurring_item }} {{ product.recurring }}</small>{% endif %}
+      <span>{{ product.model }}</span>
+    </div>
+    <span>{{ product.quantity }}</span>
+    <span>{{ product.price }}</span>
+    <strong>{{ product.total }}</strong>
+  </li>
+  {% endfor %}
+  {% for voucher in vouchers %}
+  <li><div>{{ voucher.description }}</div><span>1</span><span>{{ voucher.amount }}</span><strong>{{ voucher.amount }}</strong></li>
+  {% endfor %}
+</ul>
+<dl class="vt-summary">{% for total in totals %}<dt>{{ total.title }}</dt><dd>{{ total.text }}</dd>{% endfor %}</dl>
+{{ payment }}
+{% else %}
+<script type="text/javascript"><!--
+location = '{{ redirect }}';
+//--></script>
+{% endif %}

@@ -1,0 +1,14 @@
+{% if reviews %}
+<ul class="vt-reviews">
+  {% for review in reviews %}
+  <li>
+    <header><strong>{{ review.author }}</strong><time>{{ review.date_added }}</time></header>
+    <p>{{ review.text }}</p>
+    <p class="rating">{% for i in 1..5 %}{% if review.rating < i %}<i class="fa fa-star-o"></i>{% else %}<i class="fa fa-star"></i>{% endif %}{% endfor %}</p>
+  </li>
+  {% endfor %}
+</ul>
+<div class="vt-pager"><div>{{ pagination }}</div><p>{{ results }}</p></div>
+{% else %}
+<p class="vt-empty">{{ text_no_reviews }}</p>
+{% endif %}

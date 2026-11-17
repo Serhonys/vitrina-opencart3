@@ -1,0 +1,14 @@
+<nav class="vt-sidelist">
+  {% for category in categories %}
+  {% if category.category_id == category_id %}
+  <a class="is-active" href="{{ category.href }}">{{ category.name }}</a>
+  {% if category.children %}
+  {% for child in category.children %}
+  <a class="is-child{% if child.category_id == child_id %} is-active{% endif %}" href="{{ child.href }}">{{ child.name }}</a>
+  {% endfor %}
+  {% endif %}
+  {% else %}
+  <a href="{{ category.href }}">{{ category.name }}</a>
+  {% endif %}
+  {% endfor %}
+</nav>

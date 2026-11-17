@@ -1,0 +1,44 @@
+{{ header }}
+<main id="information-contact" class="vt-page">
+  <div class="vt-wrap">
+    <nav class="vt-crumbs">
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </nav>
+
+    <div class="vt-layout">
+      {{ column_left }}
+      <div id="content" class="vt-main">{{ content_top }}
+<header class="vt-head"><h1>{{ heading_title }}</h1></header>
+        <section class="vt-store">
+          {% if image %}<img src="{{ image }}" alt="{{ store }}" />{% endif %}
+          <div><h2>{{ store }}</h2><address>{{ address }}</address>{% if geocode %}<a href="https://maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank">{{ button_map }}</a>{% endif %}</div>
+          <div><h2>{{ text_telephone }}</h2><p>{{ telephone }}</p>{% if fax %}<h2>{{ text_fax }}</h2><p>{{ fax }}</p>{% endif %}</div>
+          <div>{% if open %}<h2>{{ text_open }}</h2><p>{{ open }}</p>{% endif %}{% if comment %}<p>{{ comment }}</p>{% endif %}</div>
+        </section>
+        {% if locations %}
+        {% for location in locations %}
+        <section class="vt-store">
+          {% if location.image %}<img src="{{ location.image }}" alt="{{ location.name }}" />{% endif %}
+          <div><h2>{{ location.name }}</h2><address>{{ location.address }}</address></div>
+          <div><p>{{ location.telephone }}</p>{% if location.fax %}<p>{{ location.fax }}</p>{% endif %}</div>
+          <div>{% if location.open %}<p>{{ location.open }}</p>{% endif %}{% if location.comment %}<p>{{ location.comment }}</p>{% endif %}</div>
+        </section>
+        {% endfor %}
+        {% endif %}
+        <form class="vt-form vt-form-narrow" action="{{ action }}" method="post" enctype="multipart/form-data">
+          <h2>{{ text_contact }}</h2>
+          <label class="vt-field" for="input-name">{{ entry_name }}<input type="text" name="name" value="{{ name }}" id="input-name" />{% if error_name %}<span class="text-danger">{{ error_name }}</span>{% endif %}</label>
+          <label class="vt-field" for="input-email">{{ entry_email }}<input type="text" name="email" value="{{ email }}" id="input-email" />{% if error_email %}<span class="text-danger">{{ error_email }}</span>{% endif %}</label>
+          <label class="vt-field" for="input-enquiry">{{ entry_enquiry }}<textarea name="enquiry" rows="8" id="input-enquiry">{{ enquiry }}</textarea>{% if error_enquiry %}<span class="text-danger">{{ error_enquiry }}</span>{% endif %}</label>
+          {{ captcha }}
+          <input class="vt-btn" type="submit" value="{{ button_submit }}" />
+        </form>
+        {{ content_bottom }}</div>
+      {{ column_right }}</div>
+  </div>
+</main>
+{{ footer }}
